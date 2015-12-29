@@ -1,7 +1,7 @@
 {
   "name": "vue-file-upload",
   "version": "0.0.1",
-  "description": "file upload plugin control based on vue.js",
+  "description": "upload file component for vue.js",
   "main": "./production/vuefileupload.min.js",
   "scripts": {
     "dev": "webpack-dev-server --hot --inline --quiet --content-base ./demo",
@@ -10,7 +10,7 @@
   "keywords": [
     "fileuplaod",
     "vue.js",
-    "plugin",
+    "component",
     "vue",
     "file",
     "uplaod"

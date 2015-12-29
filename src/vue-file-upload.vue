@@ -1,0 +1,189 @@
+<style lang="stylus" scoped>
+.fileupload-button
+  position: relative
+  overflow: hidden
+  display:inline-block
+  color:#fff
+  padding:6px 12px
+  background-color:#5cb85c
+  border-color: #4cae4c
+  margin: 0
+  font-size: 14px
+  font-weight: 400
+  line-height: 1.42857143
+  text-align: center
+  white-space: nowrap
+  vertical-align: middle
+  cursor: pointer
+  input[type=file]
+    position: absolute
+    top: 0
+    right: 0
+    margin: 0
+    opacity: 0
+    -ms-filter: 'alpha(opacity=0)'
+    font-size: 200px
+    direction: ltr
+    cursor: pointer
+
+</style>
+<template>
+<span class="fileupload-button">
+  <i v-if='icon != null' v-bind:class='rendIcon'></i>
+  {{label}}
+  <input v-el:file-input type="file" name="file">
+</span>
+</template>
+<script>
+/*!
+ * vue-file-upload
+ * 基于vue.js的文件上传组件
+ * 为了更好的给业务组件提供api，就将fileuploader类隐藏在内部，不对外开放；
+ * 带来的问题也有很多：比如队列文件的同步
+ * @param {String:url} ［上传图片地址］
+ * @param {Number:max} [上传图片数量]
+ * @param {String:label} [按钮显示名称]
+ * @param {String:name} [上传图片name属性]
+ * @param {String:icon} [图标class]
+ * @param {Boolean:autoUpload} [自动上传：true：是，false：否]
+ * @param {Boolean:multiple} [多文件上传：true：是，false：否]
+ * @param {Array:files} [多文件队列，通常需要和开发组件双向绑定]
+ * @param {Object:filters} [过滤器，对象包含name和fn属性，可用于限制上传文件类型，大小]
+ * @param {Object:requestOptions} [请求附加参数:  formData:{},headers:{},responseType:'json',withCredentials:false]
+ * @param {Object:events} [回调函数:onProgressUpload,onCompleteUpload,onErrorUpload,onSuccessUpload,onAbortUpload,onAddFileFail]
+ */
+import _ from './util/public.js';
+import UploadActions from './config/msg.js';
+import FileUploader from './lib/fileUploader.js';
+console.log(_);
+var noop = ()=>{};
+export default{
+  props:{
+    url:{
+      type:String,
+      required:true
+    },
+    max:{
+      type:Number,
+      default:Number.MAX_VALUE
+    },
+    label:{
+      type:String,
+      default:'选择文件'
+    },
+    name:{
+      type:String,
+      default:'file'
+    },
+    icon:{
+      type:String,
+      default:null
+    },
+    autoUpload:{
+      type:Boolean,
+      default:false
+    },
+    multiple:{
+      type:Boolean,
+      default:false
+    },
+    files:{
+      type:Array,
+      default:[],
+      twoWay:true
+    },
+    filters:{
+      type:Array,
+      default:[]
+    },
+    requestOptions:{
+      type:Object,
+      default:{
+        formData:{},
+        headers:{},
+        responseType:'json',
+        withCredentials:false
+      }
+    },
+    events:{
+      type:Object,
+      default:{
+        onProgressUpload:noop,
+        onCompleteUpload:noop,
+        onErrorUpload:noop,
+        onSuccessUpload:noop,
+        onAbortUpload:noop,
+        onAddFileFail:noop
+      }
+    }
+  },
+  data(){
+    return {
+      fileUploader:null
+    }
+  },
+  computed:{
+    rendIcon(){
+      return this.icon.split(/\s/g);
+    },
+    bFiles:{
+      get(){
+        return this.files;
+      },
+      set(value){
+        this.files = value;
+      }
+
+    }
+  },
+
+  created(){
+
+    this.fileUploader = new FileUploader({
+      vm:this,
+      url:this.url,
+      name:this.name,
+      maxItems:this.max,
+      filters:this.filters,
+      multiple:this.multiple,
+      autoUpload:this.autoUpload,
+      ...this.requestOptions,
+      ...this.events
+    });
+
+    this.$on(UploadActions.DOPOST,this._uploadAll);
+    this.$on(UploadActions.DOABORT,this._abortUpload);
+  },
+  ready(){
+    if(this.$els.fileInput && this.multiple){
+      this.$els.fileInput.setAttribute('multiple',this.multiple);
+    }
+    _.on(this.$els.fileInput,"change",this._onChange);
+  },
+  beforeDestroy(){
+    _.off(this.$els.fileInput,"change");
+    this.fileUploader.clearQueue();
+  },
+  methods:{
+    /**
+     * [_count 计算队列里的带上传文件]
+     * @return {[type]} [description]
+     */
+    _count(){
+      this.bFiles = this.fileUploader.getAll();
+    },
+    _uploadAll(){
+      this.fileUploader.uploadAll();
+    },
+    _abortUpload(file){
+      this.fileUploader.abortItem(file);
+    },
+    _onChange(){
+      //文件已数组为单位，因为可能存在mutiple；如果是单个文件fileuploader会自动转换为数组类型！
+      var elTargetFiles = _.isHTML5() ? this.$els.fileInput.files :this.$els.fileInput;
+      this.fileUploader.addToQueue(elTargetFiles);
+      this._count();
+    }
+  }
+}
+</script>

@@ -34,9 +34,10 @@ class FileItem{
     try{
       this.uploader.uploadItem(this);
     }catch(e){
-      console.error(e.message);
+
       this.uploader._onErrorUpload(this,e.message,e.number,[]);
       this.uploader._onErrorUpload(this,e.message,e.number,[]);
+      throw e;
     }
   }
   /**

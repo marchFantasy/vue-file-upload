@@ -10874,7 +10874,7 @@
 	      fileItems.forEach(function (fileItem) {
 	        fileItem.onPrepareUpload();
 	      });
-	      fileItems[0].upload();
+	      fileItems.length && fileItems[0].upload();
 	      //_.()
 	    }
 	    /**
@@ -10946,7 +10946,7 @@
 	    key: 'getNotUploadedItems',
 	    value: function getNotUploadedItems() {
 	      return this.queue.filter(function (item) {
-	        return !item.uploaded;
+	        return !item.isUploaded;
 	      });
 	    }
 	    /**
@@ -11315,13 +11315,16 @@
 	          response = iframe.contentDocument.body.innerHTML;
 	        } catch (e) {
 	          status = 500;
-	          console.error(e);
+	          throw e;
 	        }
 	        var xhr = { response: response, status: status };
 	        uploader._onSuccessUpload(filecontrol, xhr.response, xhr.status, headers);
 	        uploader._onCompleteUpload(filecontrol, xhr.response, xhr.status, headers);
-	
+	        _public2.default.off(iframe, "load");
 	        uploader.vm.$els.fileInput.parentNode.removeChild(form);
+	
+	        form = null;
+	        iframe = null;
 	      });
 	      form.submit();
 	    }
@@ -11477,9 +11480,10 @@
 	      try {
 	        this.uploader.uploadItem(this);
 	      } catch (e) {
-	        console.error(e.message);
+	
 	        this.uploader._onErrorUpload(this, e.message, e.number, []);
 	        this.uploader._onErrorUpload(this, e.message, e.number, []);
+	        throw e;
 	      }
 	    }
 	    /**

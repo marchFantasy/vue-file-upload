@@ -71,7 +71,7 @@ class FileUploader{
     fileItems.forEach((fileItem)=>{
         fileItem.onPrepareUpload();
     });
-    fileItems[0].upload();
+    fileItems.length && fileItems[0].upload();
     //_.()
   }
   /**
@@ -127,7 +127,7 @@ class FileUploader{
    * @return {[type]} [description]
    */
   getNotUploadedItems(){
-    return this.queue.filter(item=>!item.uploaded)
+    return this.queue.filter(item=>!item.isUploaded)
   }
   /**
    * [getNextReadyItems 获取待上传文件]
@@ -450,13 +450,16 @@ class FileUploader{
         response = iframe.contentDocument.body.innerHTML;
       }catch(e){
         status = 500;
-        console.error(e);
+        throw e;
       }
       var xhr = {response,status};
       uploader._onSuccessUpload(filecontrol, xhr.response, xhr.status, headers);
       uploader._onCompleteUpload(filecontrol, xhr.response, xhr.status, headers);
-
+      _.off(iframe,"load");
       uploader.vm.$els.fileInput.parentNode.removeChild(form);
+
+      form = null;
+      iframe = null;
     });
     form.submit();
   }

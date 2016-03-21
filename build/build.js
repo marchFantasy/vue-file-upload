@@ -9641,8 +9641,9 @@
 	// <template lang='jade'>
 	// vue-file-upload(url="http://localhost:8000/vue-file-upload/demo/upload.php",
 	// v-bind:files.sync = 'files',
-	// v-bind:on-complete-upload = 'completeUpload',
-	// v-bind:filters = "filters"
+	// v-bind:events = 'cbEvents',
+	// v-bind:filters = "filters",
+	// v-bind:request-options = "reqopts"
 	// )
 	// button(type='button',@click="doPost") 上传
 	// table
@@ -9668,13 +9669,28 @@
 	  data: function data() {
 	    return {
 	      files: [],
+	      //过滤器回调
 	      filters: [{
 	        name: "imageFilter",
 	        fn: function fn(file) {
 	          var type = '|' + file.type.slice(file.type.lastIndexOf('/') + 1) + '|';
 	          return '|jpg|png|jpeg|bmp|gif|'.indexOf(type) !== -1;
 	        }
-	      }]
+	      }],
+	      //事件回调
+	      cbEvents: {
+	        onCompleteUpload: function onCompleteUpload(file, response, status, header) {
+	          console.log(file);
+	          console.log("finish upload;");
+	        }
+	      },
+	      reqopts: {
+	        formData: {
+	          tokens: 'tttttttttttttt'
+	        },
+	        responseType: 'json',
+	        withCredentials: false
+	      }
 	    };
 	  },
 	  created: function created() {},
@@ -9699,10 +9715,11 @@
 	    },
 	    uploadAll: function uploadAll() {
 	      this.$broadcast(_msg2.default.DOPOST);
-	    },
-	    completeUpload: function completeUpload(file, response, status, header) {
-	      console.log("finish upload;");
 	    }
+	    // completeUpload(file,response,status,header){
+	    //   console.log("finish upload;")
+	    // }
+	
 	  },
 	  components: {
 	    VueFileUpload: _vueFileUpload2.default
@@ -10111,7 +10128,8 @@
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	console.log(_public2.default); // <style lang="stylus" scoped>
+	//console.log(_);
+	var noop = function noop() {}; // <style lang="stylus" scoped>
 	// .fileupload-button
 	//   position: relative
 	//   overflow: hidden
@@ -10166,7 +10184,6 @@
 	 * @param {Object:events} [回调函数:onProgressUpload,onCompleteUpload,onErrorUpload,onSuccessUpload,onAbortUpload,onAddFileFail]
 	 */
 	
-	var noop = function noop() {};
 	exports.default = {
 	  props: {
 	    url: {
@@ -10199,31 +10216,39 @@
 	    },
 	    files: {
 	      type: Array,
-	      default: [],
+	      default: function _default() {
+	        return new Array();
+	      },
 	      twoWay: true
 	    },
 	    filters: {
 	      type: Array,
-	      default: []
+	      default: function _default() {
+	        return new Array();
+	      }
 	    },
 	    requestOptions: {
 	      type: Object,
-	      default: {
-	        formData: {},
-	        headers: {},
-	        responseType: 'json',
-	        withCredentials: false
+	      default: function _default() {
+	        return {
+	          formData: {},
+	          headers: {},
+	          responseType: 'json',
+	          withCredentials: false
+	        };
 	      }
 	    },
 	    events: {
 	      type: Object,
-	      default: {
-	        onProgressUpload: noop,
-	        onCompleteUpload: noop,
-	        onErrorUpload: noop,
-	        onSuccessUpload: noop,
-	        onAbortUpload: noop,
-	        onAddFileFail: noop
+	      default: function _default() {
+	        return {
+	          onProgressUpload: noop,
+	          onCompleteUpload: noop,
+	          onErrorUpload: noop,
+	          onSuccessUpload: noop,
+	          onAbortUpload: noop,
+	          onAddFileFail: noop
+	        };
 	      }
 	    }
 	  },
@@ -11678,7 +11703,7 @@
 /* 50 */
 /***/ function(module, exports) {
 
-	module.exports = "<vue-file-upload url=\"http://localhost:8000/vue-file-upload/demo/upload.php\" v-bind:files.sync=\"files\" v-bind:on-complete-upload=\"completeUpload\" v-bind:filters=\"filters\"></vue-file-upload><button type=\"button\" @click=\"doPost\">上传</button><table><thead><tr><th>name</th><th>size</th><th>progress</th><th>status</th><th>action</th></tr></thead><tbody><tr v-for=\"file in files\"><td v-text=\"file.name\"></td><td v-text=\"file.size\"></td><td v-text=\"file.progress\"></td><td v-text=\"onStatus(file)\"></td><td><button type=\"button\" value=\"upload\" @click=\"uploadItem(file)\">upload</button></td></tr></tbody></table><button type=\"button\" @click=\"uploadAll\">上传所有文件</button>";
+	module.exports = "<vue-file-upload url=\"http://localhost:8000/vue-file-upload/demo/upload.php\" v-bind:files.sync=\"files\" v-bind:events=\"cbEvents\" v-bind:filters=\"filters\" v-bind:request-options=\"reqopts\"></vue-file-upload><button type=\"button\" @click=\"doPost\">上传</button><table><thead><tr><th>name</th><th>size</th><th>progress</th><th>status</th><th>action</th></tr></thead><tbody><tr v-for=\"file in files\"><td v-text=\"file.name\"></td><td v-text=\"file.size\"></td><td v-text=\"file.progress\"></td><td v-text=\"onStatus(file)\"></td><td><button type=\"button\" value=\"upload\" @click=\"uploadItem(file)\">upload</button></td></tr></tbody></table><button type=\"button\" @click=\"uploadAll\">上传所有文件</button>";
 
 /***/ }
 /******/ ]);

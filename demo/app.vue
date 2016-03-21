@@ -1,8 +1,9 @@
 <template lang='jade'>
 vue-file-upload(url="http://localhost:8000/vue-file-upload/demo/upload.php",
 v-bind:files.sync = 'files',
-v-bind:on-complete-upload = 'completeUpload',
-v-bind:filters = "filters"
+v-bind:events = 'cbEvents',
+v-bind:filters = "filters",
+v-bind:request-options = "reqopts"
 )
 button(type='button',@click="doPost") 上传
 table
@@ -30,6 +31,7 @@ export default{
   data(){
     return{
       files:[],
+      //过滤器回调
       filters:[
         {
           name:"imageFilter",
@@ -38,7 +40,21 @@ export default{
               return '|jpg|png|jpeg|bmp|gif|'.indexOf(type) !== -1;
           }
         }
-      ]
+      ],
+      //事件回调
+      cbEvents:{
+        onCompleteUpload:(file,response,status,header)=>{
+          console.log(file);
+          console.log("finish upload;")
+        }
+      },
+      reqopts:{
+        formData:{
+          tokens:'tttttttttttttt'
+        },
+        responseType:'json',
+        withCredentials:false
+      }
     }
   },
   created(){
@@ -64,10 +80,10 @@ export default{
     },
     uploadAll(){
       this.$broadcast(UploadActions.DOPOST);
-    },
-    completeUpload(file,response,status,header){
-      console.log("finish upload;")
     }
+    // completeUpload(file,response,status,header){
+    //   console.log("finish upload;")
+    // }
   },
   components:{
     VueFileUpload

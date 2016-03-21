@@ -55,7 +55,7 @@
 import _ from './util/public.js';
 import UploadActions from './config/msg.js';
 import FileUploader from './lib/fileUploader.js';
-console.log(_);
+
 var noop = ()=>{};
 export default{
   props:{
@@ -89,31 +89,39 @@ export default{
     },
     files:{
       type:Array,
-      default:[],
+      default:()=>{
+        return new Array();
+      },
       twoWay:true
     },
     filters:{
       type:Array,
-      default:[]
+      default:()=>{
+        return new Array();
+      }
     },
     requestOptions:{
       type:Object,
-      default:{
-        formData:{},
-        headers:{},
-        responseType:'json',
-        withCredentials:false
+      default:()=>{
+        return{
+          formData:{},
+          headers:{},
+          responseType:'json',
+          withCredentials:false
+        }
       }
     },
     events:{
       type:Object,
-      default:{
-        onProgressUpload:noop,
-        onCompleteUpload:noop,
-        onErrorUpload:noop,
-        onSuccessUpload:noop,
-        onAbortUpload:noop,
-        onAddFileFail:noop
+      default:()=>{
+        return {
+          onProgressUpload:noop,
+          onCompleteUpload:noop,
+          onErrorUpload:noop,
+          onSuccessUpload:noop,
+          onAbortUpload:noop,
+          onAddFileFail:noop
+        }
       }
     }
   },

@@ -1,7 +1,8 @@
 
 <?PHP
 //error_reporting(E_ALL);
-//header("content=text/html; charset=utf-8");
+header("content=text/html; charset=utf-8");
+//header('Access-Control-Allow-Origin: *');
 $uf = $_FILES['file'];
 if(!$uf){
   echo "no fileToUpload index";
@@ -69,4 +70,5 @@ case 3:
 case 4:
   Echo "没有文件被上传";break;
 }
+
 ?>

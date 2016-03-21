@@ -22,7 +22,8 @@ app.vue
 vue-file-upload(url='upload.do',
   v-bind:files.sync = 'files',
   v-bind:filters = "filters",
-  v-bind:on-complete-upload = 'completeUpload')
+  v-bind:events = 'cbEvents',
+  v-bind:request-options = "reqopts")
 table
   thead
     tr
@@ -56,7 +57,22 @@ export default{
               return '|jpg|png|jpeg|bmp|gif|'.indexOf(type) !== -1;
           }
         }
-      ]
+      ],
+      //回调函数绑定
+      cbEvents:{
+        onCompleteUpload:(file,response,status,header)=>{
+          console.log(file);
+          console.log("finish upload;")
+        }
+      },
+      //xhr请求附带参数
+      reqopts:{
+        formData:{
+          tokens:'tttttttttttttt'
+        },
+        responseType:'json',
+        withCredentials:false
+      }
     }
   },
   methods:{
@@ -78,9 +94,6 @@ export default{
     uploadAll(){
       //上传所有文件
       this.$broadcast('DO_POST_FILE');
-    },
-    completeUpload(file,response,status,header){
-      console.log("finish upload;")
     }
   },
   components:{

@@ -1,9 +1,4 @@
-import Vue from 'vue';
-
-var pub = {};
-Vue.util.extend(pub,Vue.util);
-
-pub.extend(pub,{
+var pub = {
   /**
    * [isHTML5 支持html5判断]
    * vue.js肯定是支持html5的
@@ -51,6 +46,69 @@ pub.extend(pub,{
    */
   isFile(file){
     return !!(file instanceof File && (file.size || file.type))
+  },
+
+  /**
+   * Add event listener shorthand.
+   *
+   * @param {Element} el
+   * @param {String} event
+   * @param {Function} cb
+   * @param {Boolean} [useCapture]
+   */
+  on(el, event, cb, useCapture){
+    el.addEventListener(event, cb, useCapture)
+  },
+
+  /**
+   * Remove event listener shorthand.
+   *
+   * @param {Element} el
+   * @param {String} event
+   * @param {Function} cb
+   */
+  off(el, event, cb){
+    el.removeEventListener(event, cb)
+  },
+
+  /**
+   * Array type check.
+   *
+   * @param {*} obj
+   * @return {Boolean}
+   */
+  isArray(arg){
+    return Object.prototype.toString.call(arg) === '[object Array]';
+  },
+
+  /**
+   * Quick object check - this is primarily used to tell
+   * Objects from primitive values when we know the value
+   * is a JSON-compliant type.
+   *
+   * @param {*} obj
+   * @return {Boolean}
+   */
+  isObject(obj){
+    return obj !== null && typeof obj === 'object'
+  },
+
+  /**
+   * Convert an Array-like object to a real Array.
+   *
+   * @param {Array-like} list
+   * @param {Number} [start] - start index
+   * @return {Array}
+   */
+  toArray(list, start) {
+    start = start || 0
+    var i = list.length - start
+    var ret = new Array(i)
+    while (i--) {
+      ret[i] = list[i + start]
+    }
+    return ret
   }
-})
+
+}
 export default pub;

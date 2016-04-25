@@ -138,6 +138,23 @@ class FileUploader{
     return this.queue.filter(item=>item.isReady && !item.isUploading);
   }
   /**
+   * [onAddFileSuccess 成功添加队列回调]
+   * @param  {[type]} fileItem [description]
+   * @return {[type]}          [description]
+   */
+  onAddFileSuccess(fileItem){
+
+  }
+  /**
+   * [onAddFileFail 失败添加队列回调]
+   * @param  {[type]} file       [description]
+   * @param  {[type]} failFilter [description]
+   * @return {[type]}            [description]
+   */
+  onAddFileFail(file,failFilter){
+
+  }
+  /**
    * [_onProgressUpload 内部方法，上传进度]
    * @param  {[class]} fileItem [description]
    * @param  {[number]} progress [进度值]

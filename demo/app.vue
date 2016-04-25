@@ -46,6 +46,10 @@ export default{
         onCompleteUpload:(file,response,status,header)=>{
           console.log(file);
           console.log("finish upload;")
+        },
+        onAddFileSuccess:(file)=>{
+          console.log(file);
+          console.log("success add to queue");
         }
       },
       reqopts:{

@@ -50,6 +50,7 @@ class FileUploader{
       if(uploader._isValidFile(fileAlias,uploader.filters)){
         var fileItem = new FileItem(this,file,fileAlias);
         uploader.queue.push(fileItem);
+        uploader.onAddFileSuccess(fileItem);
       }else{
         uploader.onAddFileFail(file,uploader.filters[uploader.failFilterIndex]);
       }

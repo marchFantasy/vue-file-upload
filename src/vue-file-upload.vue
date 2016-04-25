@@ -50,7 +50,7 @@
  * @param {Array:files} [多文件队列，通常需要和开发组件双向绑定]
  * @param {Object:filters} [过滤器，对象包含name和fn属性，可用于限制上传文件类型，大小]
  * @param {Object:requestOptions} [请求附加参数:  formData:{},headers:{},responseType:'json',withCredentials:false]
- * @param {Object:events} [回调函数:onProgressUpload,onCompleteUpload,onErrorUpload,onSuccessUpload,onAbortUpload,onAddFileFail]
+ * @param {Object:events} [回调函数:onProgressUpload,onCompleteUpload,onErrorUpload,onSuccessUpload,onAbortUpload,onAddFileFail,onAddFileSuccess]
  */
 import _ from './util/public.js';
 import UploadActions from './config/msg.js';
@@ -120,7 +120,8 @@ export default{
           onErrorUpload:noop,
           onSuccessUpload:noop,
           onAbortUpload:noop,
-          onAddFileFail:noop
+          onAddFileFail:noop,
+          onAddFileSuccess:noop
         }
       }
     }

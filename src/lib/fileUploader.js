@@ -369,7 +369,7 @@ class FileUploader{
       }
     }
     //上传进度回调
-    xhr.upload.progress = (event)=>{
+    xhr.upload.onprogress = (event)=>{
       var progress = Math.round(event.lengthComputable ? event.loaded * 100 / event.total : 0);
       uploader._onProgressUpload(fileItem, progress);
     };

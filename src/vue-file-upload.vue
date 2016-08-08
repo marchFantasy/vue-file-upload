@@ -25,7 +25,6 @@
     font-size: 200px
     direction: ltr
     cursor: pointer
-
 </style>
 <template>
 <span class="fileupload-button">

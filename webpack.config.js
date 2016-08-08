@@ -23,11 +23,14 @@ module.exports = {
       }
     ]
   },
-  // example: if you wish to apply custom babel options
-  // instead of using vue-loader's default:
+  vue:{
+    loaders:{
+        js:'babel'
+    }
+  },
   babel: {
     presets: ['es2015', 'stage-0'],
     plugins: ['transform-runtime']
   },
-  devtool : '#source-map'
+  devtool : 'cheap-source-map'
 }

@@ -11,6 +11,13 @@ module.exports = {
     library: 'vuefileupload',
     libraryTarget: 'umd'
   },
+  resolve:{
+      extensions: ['', '.js', '.vue'],
+      fallback: [path.join(__dirname, 'node_modules')],
+      alias:{
+          'vue$': 'vue/dist/vue.js'
+      }
+  },
   module: {
     loaders: [
       {
@@ -29,15 +36,7 @@ module.exports = {
       }
     ]
   },
-  vue:{
-    loaders:{
-        js:'babel'
-    }
-  },
-  babel: {
-    presets: ['es2015','stage-0'],
-    plugins: ['transform-runtime']
-  },
+
   plugins:[
     new webpack.DefinePlugin({
           'process.env': {

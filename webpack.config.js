@@ -1,9 +1,20 @@
+
+var webpack = require('webpack');
+var path = require('path');
+
 module.exports = {
   entry: './demo/index.js',
   output: {
     path: './build',
     publicPath: 'build/',
     filename: 'build.js'
+  },
+  resolve:{
+      extensions: ['', '.js', '.vue'],
+      fallback: [path.join(__dirname, 'node_modules')],
+      alias:{
+          'vue$': 'vue/dist/vue.js'
+      }
   },
   module: {
     loaders: [
@@ -13,7 +24,7 @@ module.exports = {
       },
       {
         test: /\.js$/,
-        exclude: /node_modules|vue\/src|vue-router\/|vue-loader\/|vue-hot-reload-api\//,
+        exclude: /node_modules/,
         loader: 'babel'
       },
       {
@@ -23,14 +34,13 @@ module.exports = {
       }
     ]
   },
-  vue:{
-    loaders:{
-        js:'babel'
-    }
-  },
-  babel: {
-    presets: ['es2015', 'stage-0'],
-    plugins: ['transform-runtime']
-  },
+  plugins:[
+      new webpack.DefinePlugin({
+          'process.env': {
+              'NODE_ENV':'"development"'
+          }
+      }),
+      new webpack.optimize.OccurenceOrderPlugin(),
+  ],
   devtool : 'cheap-source-map'
 }

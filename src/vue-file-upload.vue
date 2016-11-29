@@ -30,7 +30,7 @@
 <span class="fileupload-button">
   <i v-if='icon != null' v-bind:class='rendIcon'></i>
   {{label}}
-  <input v-el:file-input type="file" name="file">
+  <input ref="fileInput" type="file" name="file">
 </span>
 </template>
 <script>
@@ -86,12 +86,9 @@ export default{
       type:Boolean,
       default:false
     },
-    files:{
-      type:Array,
-      default:()=>{
-        return new Array();
-      },
-      twoWay:true
+    onAdd:{
+        type:Function,
+        default:noop
     },
     filters:{
       type:Array,
@@ -158,29 +155,19 @@ export default{
       ...this.requestOptions,
       ...this.events
     });
-
-    this.$on(UploadActions.DOPOST,this._uploadAll);
-    this.$on(UploadActions.DOABORT,this._abortUpload);
   },
-  ready(){
-    if(this.$els.fileInput && this.multiple){
-      this.$els.fileInput.setAttribute('multiple',this.multiple);
+  mounted(){
+    if(this.$refs.fileInput && this.multiple){
+      this.$refs.fileInput.setAttribute('multiple',this.multiple);
     }
-    _.on(this.$els.fileInput,"change",this._onChange);
+    _.on(this.$refs.fileInput,"change",this._onChange);
   },
   beforeDestroy(){
-    _.off(this.$els.fileInput,"change");
+    _.off(this.$refs.fileInput,"change");
     this.fileUploader.clearQueue();
   },
   methods:{
-    /**
-     * [_count 计算队列里的带上传文件]
-     * @return {[type]} [description]
-     */
-    _count(){
-      this.bFiles = this.fileUploader.getAll();
-    },
-    _uploadAll(){
+    uploadAll(){
       this.fileUploader.uploadAll();
     },
     _abortUpload(file){
@@ -188,9 +175,10 @@ export default{
     },
     _onChange(){
       //文件已数组为单位，因为可能存在mutiple；如果是单个文件fileuploader会自动转换为数组类型！
-      var elTargetFiles = _.isHTML5() ? this.$els.fileInput.files :this.$els.fileInput;
+      var elTargetFiles = _.isHTML5() ? this.$refs.fileInput.files :this.$refs.fileInput;
       this.fileUploader.addToQueue(elTargetFiles);
-      this._count();
+      this.$emit('onAdd',this.fileUploader.getAll());
+      //this._count();
     }
   }
 }

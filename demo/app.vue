@@ -1,32 +1,36 @@
 <template lang='jade'>
-vue-file-upload(url="http://localhost:8000/vue-file-upload/demo/upload.php",
-v-bind:files.sync = 'files',
-v-bind:events = 'cbEvents',
-v-bind:filters = "filters",
-v-bind:request-options = "reqopts"
-)
-button(type='button',@click="doPost") 上传
-table
-  thead
-    tr
-      th name
-      th size
-      th progress
-      th status
-      th action
-  tbody
-    tr(v-for='file in files')
-      td(v-text='file.name')
-      td(v-text='file.size')
-      td(v-text='file.progress')
-      td(v-text='onStatus(file)')
-      td
-        button(type='button',value='upload',@click="uploadItem(file)") upload
-button(type='button',@click="uploadAll") 上传所有文件
+div
+    vue-file-upload(url="http://localhost:8000/vue-file-upload/demo/upload.php",
+    ref="vueFileUploader"
+    v-bind:events = 'cbEvents',
+    v-bind:filters = "filters",
+    v-bind:request-options = "reqopts",
+    v-on:onAdd = "onAddItem"
+    )
+    table
+      thead
+        tr
+          th name
+          th size
+          th preview
+          th progress
+          th status
+          th action
+      tbody
+        tr(v-for='file in files')
+          td(v-text='file.name')
+          td(v-text='file.size')
+          td
+            img(v-bind:src='onPreview(file)')
+          td(v-text='file.progress')
+          td(v-text='onStatus(file)')
+          td
+            button(type='button',value='upload',@click="uploadItem(file)") upload
+            button(type='button',value='upload',@click="deleteItem(file)") delete
+    button(type='button',@click="uploadAll") 上传所有文件
 </template>
 <script>
 import VueFileUpload from '../src/vue-file-upload.vue';
-import UploadActions from '../src/config/msg.js';
 export default{
   data(){
     return{
@@ -65,9 +69,6 @@ export default{
 
   },
   methods:{
-    doPost(){
-      this.$broadcast(UploadActions.DOPOST);
-    },
     onStatus(file){
       if(file.isSuccess){
         return "上传成功";
@@ -79,11 +80,22 @@ export default{
         return "待上传";
       }
     },
+    onPreview(file){
+        var src = window.URL.createObjectURL(file.file);
+        return src;
+    },
+    onAddItem(files){
+        console.log(files);
+        this.files = files;
+    },
     uploadItem(file){
       file.upload();
     },
+    deleteItem(file){
+        file.remove();
+    },
     uploadAll(){
-      this.$broadcast(UploadActions.DOPOST);
+      this.$refs.vueFileUploader.uploadAll();
     }
     // completeUpload(file,response,status,header){
     //   console.log("finish upload;")

@@ -97,9 +97,6 @@ export default{
     uploadAll(){
       this.$refs.vueFileUploader.uploadAll();
     }
-    // completeUpload(file,response,status,header){
-    //   console.log("finish upload;")
-    // }
   },
   components:{
     VueFileUpload

@@ -27,10 +27,11 @@ app.vue
 ```javascript
 <template lang="jade">
 vue-file-upload(url='upload.do',
-  v-bind:files.sync = 'files',
+  ref="vueFileUploader",
   v-bind:filters = "filters",
   v-bind:events = 'cbEvents',
-  v-bind:request-options = "reqopts")
+  v-bind:request-options = "reqopts",
+  v-on:onAdd = "onAddItem")
 table
   thead
     tr
@@ -94,13 +95,17 @@ export default{
         return "待上传";
       }
     },
+    onAddItem(files){
+        console.log(files);
+        this.files = files;
+    },
     uploadItem(file){
       //单个文件上传
       file.upload();
     },
     uploadAll(){
       //上传所有文件
-      this.$broadcast('DO_POST_FILE');
+      this.$refs.vueFileUploader.uploadAll();
     }
   },
   components:{

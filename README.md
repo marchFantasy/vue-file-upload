@@ -49,6 +49,7 @@ table
       td
         button(type='button',@click="uploadItem(file)") 上传
 button(type='button',@click="uploadAll") 上传所有文件
+button(type='button',@click="clearAll") 清空文件列表
 </template>
 <script>
 import VueFileUpload from 'vue-file-upload';
@@ -106,6 +107,10 @@ export default{
     uploadAll(){
       //上传所有文件
       this.$refs.vueFileUploader.uploadAll();
+    },
+    clearAll(){
+      //清空所有文件
+      this.$refs.vueFileUploader.clearAll();
     }
   },
   components:{

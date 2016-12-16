@@ -170,6 +170,9 @@ export default{
     uploadAll(){
       this.fileUploader.uploadAll();
     },
+    clearAll(){
+      this.fileUploader.clearQueue();
+    },
     _abortUpload(file){
       this.fileUploader.abortItem(file);
     },
@@ -178,7 +181,11 @@ export default{
       var elTargetFiles = _.isHTML5() ? this.$refs.fileInput.files :this.$refs.fileInput;
       this.fileUploader.addToQueue(elTargetFiles);
       this.$emit('onAdd',this.fileUploader.getAll());
-      //this._count();
+      this._resetInput();
+    },
+    _resetInput(){
+        //重置input值，可以上传重复
+        this.$refs.fileInput.value = '';
     }
   }
 }

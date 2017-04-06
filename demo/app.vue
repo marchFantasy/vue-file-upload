@@ -21,13 +21,14 @@ div
           td(v-text='file.name')
           td(v-text='file.size')
           td
-            img(v-bind:src='onPreview(file)')
+            img(v-bind:src='onPreview(file)',width='220px')
           td(v-text='file.progress')
           td(v-text='onStatus(file)')
           td
             button(type='button',value='upload',@click="uploadItem(file)") upload
             button(type='button',value='upload',@click="deleteItem(file)") delete
     button(type='button',@click="uploadAll") 上传所有文件
+    button(type='button',@click="clearAll") 清空文件列表
 </template>
 <script>
 import VueFileUpload from '../src/vue-file-upload.vue';
@@ -96,6 +97,9 @@ export default{
     },
     uploadAll(){
       this.$refs.vueFileUploader.uploadAll();
+    },
+    clearAll(){
+      this.$refs.vueFileUploader.clearAll();
     }
   },
   components:{

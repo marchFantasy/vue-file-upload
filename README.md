@@ -1,10 +1,6 @@
 # vue-file-upload
-[![NPM version][npm-image]][npm-url]
-[![npm download][download-image]][download-url]
-[npm-image]:http://img.shields.io/npm/v/vue-file-upload.svg?style=flat-square
-[npm-url]:http://npmjs.org/package/vue-file-upload
-[download-image]: https://img.shields.io/npm/dm/vue-file-upload.svg?style=flat-square
-[download-url]: https://npmjs.org/package/vue-file-upload
+[![NPM version](https://img.shields.io/npm/v/vue-file-upload.svg?style=flat-square)](https://www.npmjs.com/package/vue-file-upload)
+[![npm download](https://img.shields.io/npm/dm/vue-file-upload.svg?style=flat-square)](https://www.npmjs.com/package/vue-file-upload)
 
 vue.js ，vue-loader 上传文件，vue-file-upload
 代码里面包含demo，运行：
@@ -49,6 +45,7 @@ table
       td
         button(type='button',@click="uploadItem(file)") 上传
 button(type='button',@click="uploadAll") 上传所有文件
+button(type='button',@click="clearAll") 清空文件列表
 </template>
 <script>
 import VueFileUpload from 'vue-file-upload';
@@ -106,6 +103,10 @@ export default{
     uploadAll(){
       //上传所有文件
       this.$refs.vueFileUploader.uploadAll();
+    },
+    clearAll(){
+      //清空所有文件
+      this.$refs.vueFileUploader.clearAll();
     }
   },
   components:{

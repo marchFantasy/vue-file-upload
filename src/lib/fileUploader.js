@@ -1,6 +1,6 @@
 
 import _ from '../util/public.js';
-import fileuploaderOptions from '../config/fileUploaderOptions.js';
+import generateOptions from './generate.js';
 import FileItem from './fileItem.js';
 import FileAlias from './fileAlias.js';
 /**
@@ -13,7 +13,7 @@ class FileUploader{
 
   constructor(options){
 
-    _.extend(this,fileuploaderOptions,options,{
+    _.extend(this,generateOptions(),options,{
       fileindex:0,
       isUploading:false,
       failFilterIndex:-1

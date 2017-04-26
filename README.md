@@ -4,7 +4,7 @@
 
 vue.js ，vue-loader 上传文件，vue-file-upload
 代码里面包含demo，运行：
-```javascript
+```shell
 npm run dev
 ```
 
@@ -17,6 +17,110 @@ npm install --save vue-file-upload
 ```javascript
 var VueFileUpload = require('vue-file-upload');
 
+```
+### 属性（Props）
+```javascript
+//目标服务器地址
+url:{
+  type:String,
+  required:true
+},
+//最大文件上传数
+max:{
+  type:Number,
+  default:Number.MAX_VALUE
+},
+//按钮名称
+label:{
+  type:String,
+  default:'选择文件'
+},
+//文件名称（服务端识别的上传文件名）
+name:{
+  type:String,
+  default:'file'
+},
+//图标
+icon:{
+  type:String,
+  default:null
+},
+//自动上传
+autoUpload:{
+  type:Boolean,
+  default:false
+},
+//支持多选文件上传
+multiple:{
+  type:Boolean,
+  default:false
+},
+//每新增一个待上传文件回调函数
+onAdd:{
+    type:Function,
+    default:noop
+},
+//过滤函数
+filters:{
+  type:Array,
+  default:()=>{
+    return new Array();
+  }
+},
+//请求附带参数
+requestOptions:{
+  type:Object,
+  default:()=>{
+    return{
+      formData:{},
+      headers:{},
+      responseType:'json',
+      withCredentials:false
+    }
+  }
+},
+//文件上传状态回调函数
+events:{
+  type:Object,
+  default:()=>{
+    return {
+      onProgressUpload:noop(file,progress:number),//上传进度回调
+      onCompleteUpload:noop(file,response,status,headers),//上传完成回调，不论成功或失败都调用
+      onErrorUpload:noop(file,response,status,headers),//上传失败回调
+      onSuccessUpload:noop(file,response,status,headers),//上传成功回调
+      onAbortUpload:noop(file,response,status,headers),//取消上传
+      onAddFileFail:noop(file,failFilter:array),//添加待上传文件失败回调，会通过filters过滤函数校验，不通过回调此函数
+      onAddFileSuccess:noop(file)//添加待上传文件成功回调
+    }
+  }
+}
+
+```
+### 文件属性说明（file）
+```javascript
+const file = {
+  name:"文件名称",//文件名称
+  size:123,//文件大小
+  type:"image/jpeg",//文件类型
+  isReady: false,//，点击上传后，即将准备好上传
+  isUploading:false,//正在上传
+  isUploaded:false,//上传后
+  isSuccess:false,//成功上传
+  isCancel:false,//取消上传
+  isError:false,//上传失败
+  progress:0,//上传进度
+}
+
+//file 函数（method）
+file.upload(); //上传该文件
+file.cancel();//取消上传
+file.remove();//移除该文件
+
+```
+### 方法（methods）
+```javascript
+this.$refs.vueFileUploader.uploadAll()//上传所有队列中的文件
+this.$refs.vueFileUploader.clearAll()//清空队列文件
 ```
 ### ES6
 app.vue

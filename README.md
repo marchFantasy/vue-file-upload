@@ -2,6 +2,9 @@
 [![NPM version](https://img.shields.io/npm/v/vue-file-upload.svg?style=flat-square)](https://www.npmjs.com/package/vue-file-upload)
 [![npm download](https://img.shields.io/npm/dm/vue-file-upload.svg?style=flat-square)](https://www.npmjs.com/package/vue-file-upload)
 
+> vue1.x版本 可安装vue-file-upload@0.0.7版本   
+vue2.x版本 可安装当前最新版本
+
 vue.js ，vue-loader 上传文件，vue-file-upload
 代码里面包含demo，运行：
 ```shell

@@ -124,6 +124,7 @@ file.remove();//移除该文件
 ```javascript
 this.$refs.vueFileUploader.uploadAll()//上传所有队列中的文件
 this.$refs.vueFileUploader.clearAll()//清空队列文件
+this.$refs.vuefileUploader.setFormDataItem( key, value );//设置formdata
 ```
 ### ES6
 app.vue
@@ -186,6 +187,10 @@ export default{
         withCredentials:false
       }
     }
+  },
+  mounted(){
+    //设置formData数据
+    this.$refs.vueFileUploader.setFormDataItem('authorization',"123");
   },
   methods:{
     onStatus(file){

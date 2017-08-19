@@ -59,7 +59,8 @@ export default{
       },
       reqopts:{
         formData:{
-          tokens:'tttttttttttttt'
+          tokens:'tttttttttttttt',
+          authorization:'',
         },
         responseType:'json',
         withCredentials:false
@@ -67,7 +68,9 @@ export default{
     }
   },
   created(){
-
+  },
+  mounted(){
+    this.$refs.vueFileUploader.setFormDataItem('authorization',"123");
   },
   methods:{
     onStatus(file){

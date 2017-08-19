@@ -167,11 +167,23 @@ export default{
     this.fileUploader.clearQueue();
   },
   methods:{
+    /**
+     * 上传全部文件
+     */
     uploadAll(){
       this.fileUploader.uploadAll();
     },
+    /**
+     * 清空全部文件
+     */
     clearAll(){
       this.fileUploader.clearQueue();
+    },
+    /**
+     * 设置formdata数据
+     */
+    setFormDataItem(key, data){
+      this.fileUploader.setFormDataItem(key, data);
     },
     _abortUpload(file){
       this.fileUploader.abortItem(file);

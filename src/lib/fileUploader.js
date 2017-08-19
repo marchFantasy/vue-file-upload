@@ -124,6 +124,14 @@ class FileUploader{
     fileItem.destroy();
   }
   /**
+   * 设置formData
+   * @param { string } key 键名
+   * @param { string | array | object} data 键值
+   */
+  setFormDataItem( key, data = ''){
+    this.formData[ key ] = data;
+  }
+  /**
    * [getNotUploadedItems 获取队列未上传文件列表]
    * @return {[type]} [description]
    */

@@ -55,6 +55,9 @@ export default{
         onAddFileSuccess:(file)=>{
           console.log(file);
           console.log("success add to queue");
+        },
+        onProgressUpload:(file, progress) => {
+          console.log(file.name + ":" + progress);
         }
       },
       reqopts:{

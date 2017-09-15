@@ -14,7 +14,7 @@ class FileUploader{
   constructor(options){
 
     _.extend(this,generateOptions(),options,{
-      fileindex:0,
+      fileIndex:0,
       isUploading:false,
       failFilterIndex:-1
     });

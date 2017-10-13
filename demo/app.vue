@@ -1,7 +1,38 @@
+<style>
+.vue-file-upload{
+    position: relative;
+    overflow: hidden;
+    display: inline-block;
+    color:#fff;
+    padding:6px 12px;
+    background-color:#5cb85c;
+    border-color: #4cae4c;
+    margin: 0;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1.42857143;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    cursor: pointer;
+}
+.vue-file-upload input[type=file]{
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: 0;
+    opacity: 0;
+    -ms-filter: alpha(opacity=0);
+    font-size: 200px;
+    direction: ltr;
+    cursor: pointer;
+}
+</style>
 <template lang='jade'>
 div
     vue-file-upload(url="http://localhost:8000/vue-file-upload/demo/upload.php",
     ref="vueFileUploader"
+    class="fileupload-button"
     v-bind:events = 'cbEvents',
     v-bind:filters = "filters",
     v-bind:request-options = "reqopts",

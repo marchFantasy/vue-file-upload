@@ -38,6 +38,7 @@ div
     v-bind:request-options = "reqopts",
     v-on:onAdd = "onAddItem"
     )
+      span(slot="label") 选择文件
     table
       thead
         tr

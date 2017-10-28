@@ -1,7 +1,6 @@
 <template>
 <span class="vue-file-upload">
-  <i v-if='icon != null' v-bind:class='rendIcon'></i>
-  {{label}}
+  <slot name="label">上传文件</slot>
   <input ref="fileInput" type="file" name="file">
 </span>
 </template>
@@ -13,9 +12,7 @@
  * 带来的问题也有很多：比如队列文件的同步
  * @param {String:url} ［上传图片地址］
  * @param {Number:max} [上传图片数量]
- * @param {String:label} [按钮显示名称]
  * @param {String:name} [上传图片name属性]
- * @param {String:icon} [图标class]
  * @param {Boolean:autoUpload} [自动上传：true：是，false：否]
  * @param {Boolean:multiple} [多文件上传：true：是，false：否]
  * @param {Array:files} [多文件队列，通常需要和开发组件双向绑定]
@@ -38,17 +35,9 @@ export default{
       type:Number,
       default:Number.MAX_VALUE
     },
-    label:{
-      type:String,
-      default:'选择文件'
-    },
     name:{
       type:String,
       default:'file'
-    },
-    icon:{
-      type:String,
-      default:null
     },
     autoUpload:{
       type:Boolean,
@@ -100,9 +89,6 @@ export default{
     }
   },
   computed:{
-    rendIcon(){
-      return this.icon.split(/\s/g);
-    },
     bFiles:{
       get(){
         return this.files;

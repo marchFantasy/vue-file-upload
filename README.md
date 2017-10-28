@@ -8,7 +8,7 @@ vue2.x版本 可安装当前最新版本
 vue.js ，vue-loader 上传文件，vue-file-upload
 代码里面包含demo，运行：
 ```shell
-npm run dev
+yarn install && yarn sart
 ```
 
 ## install
@@ -19,7 +19,8 @@ npm install --save vue-file-upload
 ### CommonJS
 ```javascript
 var VueFileUpload = require('vue-file-upload');
-
+//es6
+import VueFileUpload from '../src/vue-file-upload.vue';
 ```
 ### 属性（Props）
 ```javascript
@@ -33,20 +34,10 @@ max:{
   type:Number,
   default:Number.MAX_VALUE
 },
-//按钮名称
-label:{
-  type:String,
-  default:'选择文件'
-},
 //文件名称（服务端识别的上传文件名）
 name:{
   type:String,
   default:'file'
-},
-//图标
-icon:{
-  type:String,
-  default:null
 },
 //自动上传
 autoUpload:{
@@ -99,6 +90,13 @@ events:{
 }
 
 ```
+### 按钮名称说明
+```html
+<vue-file-upload>
+    <span slot="label">上传文件</span>
+</vue-file-upload>
+
+```
 ### 文件属性说明（file）
 ```javascript
 const file = {
@@ -136,6 +134,7 @@ vue-file-upload(url='upload.do',
   v-bind:events = 'cbEvents',
   v-bind:request-options = "reqopts",
   v-on:onAdd = "onAddItem")
+    span(slot="label") 选择文件
 table
   thead
     tr

@@ -311,7 +311,13 @@ class FileUploader{
    * @return {Boolean}          [description]
    */
   _isFileList(fileList){
-    return fileList instanceof FileList;
+    if("FileList" in window){
+        return fileList instanceof FileList;
+    }else{
+        //ie
+        return _.isObject(fileList) && 'length' in fileList;
+    }
+    
   }
 
   /**

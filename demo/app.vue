@@ -98,7 +98,10 @@ export default{
           authorization:'',
         },
         responseType:'json',
-        withCredentials:false
+        withCredentials:false,
+        headers: {
+            'custormerHeader':'aaa'
+        }
       }
     }
   },

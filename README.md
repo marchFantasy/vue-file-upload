@@ -20,7 +20,7 @@ npm install --save vue-file-upload
 ```javascript
 var VueFileUpload = require('vue-file-upload');
 //es6
-import VueFileUpload from '../src/vue-file-upload.vue';
+import VueFileUpload from 'vue-file-upload';
 ```
 ### 属性（Props）
 ```javascript

@@ -1,6 +1,6 @@
 {
   "name": "vue-file-upload",
-  "version": "0.1.7",
+  "version": "0.1.8",
   "description": "upload file component for vue.js",
   "main": "./production/vuefileupload.min.js",
   "repository": {
@@ -8,7 +8,7 @@
     "url": "https://github.com/marchFantasy/vue-file-upload"
   },
   "scripts": {
-    "start": "NODE_ENV=development webpack-dev-server --hot --inline --config=./build/webpack.config.js --port=6080 --content-base ./demo",
+    "start": "NODE_ENV=development webpack-dev-server --hot --inline --config=./build/webpack.config.js --port=6080 --content-base ./demo --host 127.0.0.1",
     "release": "NODE_ENV=production ./node_modules/.bin/webpack --config ./build/webpack.production.js"
   },
   "keywords": [

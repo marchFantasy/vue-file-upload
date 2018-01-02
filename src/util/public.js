@@ -41,11 +41,12 @@ var pub = {
   },
   /**
    * [_isFile check文件]
+   * ie9 未定义File
    * @param  {[type]}  file [description]
    * @return {Boolean}      [description]
    */
   isFile(file){
-    return !!(file instanceof File && (file.size >= 0 || file.type))
+    return file !== null && !!((window.File && file instanceof window.File) || (file.size >= 0 && file.type))
   },
 
   /**

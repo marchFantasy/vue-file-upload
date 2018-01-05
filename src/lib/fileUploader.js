@@ -466,11 +466,11 @@ class FileUploader{
 
       uploader._onAbortUpload(filecontrol, xhr.response, xhr.status, headers);
       uploader._onCompleteUpload(filecontrol, xhr.response, xhr.status, headers);
-      uploader.vm.$els.fileInput.parentNode.removeChild(form);
+      uploader.vm.$refs.fileInput.parentNode.removeChild(form);
     }
 
 
-    uploader.vm.$els.fileInput.parentNode.insertBefore(form,uploader.vm.$els.fileInput);
+    uploader.vm.$refs.fileInput.parentNode.insertBefore(form,uploader.vm.$refs.fileInput);
     form.appendChild(input.cloneNode(true));
     form.appendChild(iframe);
 
@@ -488,7 +488,7 @@ class FileUploader{
       uploader._onSuccessUpload(filecontrol, xhr.response, xhr.status, headers);
       uploader._onCompleteUpload(filecontrol, xhr.response, xhr.status, headers);
       _.off(iframe,"load");
-      uploader.vm.$els.fileInput.parentNode.removeChild(form);
+      uploader.vm.$refs.fileInput.parentNode.removeChild(form);
 
       form = null;
       iframe = null;

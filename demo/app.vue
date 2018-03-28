@@ -123,8 +123,13 @@ export default{
       }
     },
     onPreview(file){
-        var src = window.URL.createObjectURL(file.file);
-        return src;
+        if(window.URL){
+           var src = window.URL.createObjectURL(file.file);
+          return src;
+        }
+
+        return file.name;
+       
     },
     onAddItem(files){
         console.log(files);

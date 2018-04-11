@@ -1,6 +1,6 @@
 {
   "name": "vue-file-upload",
-  "version": "0.1.9",
+  "version": "0.1.10",
   "description": "upload file component for vue.js",
   "main": "./production/vuefileupload.min.js",
   "repository": {

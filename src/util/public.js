@@ -46,7 +46,7 @@ var pub = {
    * @return {Boolean}      [description]
    */
   isFile(file){
-    return file !== null && !!((window.File && file instanceof window.File) && (file.size >= 0 || file.type))
+    return file !== null && !!((window.File && file instanceof window.File) && (file.size >= 0 && file.type))
   },
 
   /**

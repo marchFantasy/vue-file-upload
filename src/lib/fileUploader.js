@@ -471,7 +471,7 @@ class FileUploader{
 
 
     uploader.vm.$refs.fileInput.parentNode.insertBefore(form,uploader.vm.$refs.fileInput);
-    form.appendChild(input.cloneNode(true));
+    form.appendChild(input);
     form.appendChild(iframe);
 
     _.on(iframe,"load",function(){

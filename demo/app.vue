@@ -30,7 +30,7 @@
 </style>
 <template lang='jade'>
 div
-    vue-file-upload(url="http://localhost:8000/vue-file-upload/demo/upload.php",
+    vue-file-upload(url="http://127.0.0.1:6080/vue-file-upload/demo/upload.php",
     ref="vueFileUploader"
     class="fileupload-button"
     v-bind:events = 'cbEvents',
@@ -123,13 +123,11 @@ export default{
       }
     },
     onPreview(file){
-        if(window.URL){
-           var src = window.URL.createObjectURL(file.file);
-          return src;
-        }
-
-        return file.name;
-       
+      if("URL" in window){
+        var src = window.URL.createObjectURL(file.file);
+        return src;
+      }
+        
     },
     onAddItem(files){
         console.log(files);

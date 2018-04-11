@@ -30,7 +30,7 @@
 </style>
 <template lang='jade'>
 div
-    vue-file-upload(url="http://localhost:8000/vue-file-upload/demo/upload.php",
+    vue-file-upload(url="http://127.0.0.1:6080/vue-file-upload/demo/upload.php",
     ref="vueFileUploader"
     class="fileupload-button"
     v-bind:events = 'cbEvents',

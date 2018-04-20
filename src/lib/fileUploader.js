@@ -466,7 +466,9 @@ class FileUploader{
 
       uploader._onAbortUpload(filecontrol, xhr.response, xhr.status, headers);
       uploader._onCompleteUpload(filecontrol, xhr.response, xhr.status, headers);
+      uploader.vm.$refs.fileInput.parentNode.parentNode.appendChild(input);
       uploader.vm.$refs.fileInput.parentNode.removeChild(form);
+
     }
 
 
@@ -488,8 +490,10 @@ class FileUploader{
       uploader._onSuccessUpload(filecontrol, xhr.response, xhr.status, headers);
       uploader._onCompleteUpload(filecontrol, xhr.response, xhr.status, headers);
       _.off(iframe,"load");
+      uploader.vm.$refs.fileInput.parentNode.parentNode.appendChild(input);
       uploader.vm.$refs.fileInput.parentNode.removeChild(form);
 
+      input=null;
       form = null;
       iframe = null;
     });

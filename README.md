@@ -226,3 +226,6 @@ export default{
 }
 </script>
 ```
+### 常见问题
+
+- 如果返回值response都是null类型，请检查headers有无设置：accept= application/json，参考[#17](https://github.com/marchFantasy/vue-file-upload/issues/17#issuecomment-401312820)

@@ -1,5 +1,5 @@
 <template>
-    <span class="vue-file-upload" :class="classes" :id="id">
+    <span class="vue-file-upload" :class="getClasses" :id="getId">
       <slot name="label">上传文件</slot>
       <input ref="fileInput" type="file" name="file">
     </span>
@@ -31,13 +31,6 @@
             url: {
                 type: String,
                 required: true
-            },
-            classes: {
-                type: [String, Array],
-                default: []
-            },
-            id: {
-                type: String
             },
             max: {
                 type: Number,

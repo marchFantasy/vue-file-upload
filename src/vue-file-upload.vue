@@ -128,7 +128,7 @@
             this.fileUploader.clearQueue();
         },
         watch: {
-            'events': function () {
+            events: function (val) {
                 this._resetEvents();
             }
         },

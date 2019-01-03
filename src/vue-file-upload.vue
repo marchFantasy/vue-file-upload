@@ -1,5 +1,5 @@
 <template>
-    <span class="vue-file-upload" :class="getClasses" :id="getId">
+    <span class="vue-file-upload">
       <slot name="label">上传文件</slot>
       <input ref="fileInput" type="file" name="file">
     </span>

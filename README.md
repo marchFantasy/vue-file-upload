@@ -8,7 +8,7 @@ vue2.x版本 可安装当前最新版本
 vue.js ，vue-loader 上传文件，vue-file-upload
 代码里面包含demo，运行：
 ```shell
-yarn install && yarn sart
+yarn install && yarn start
 ```
 
 ## install
